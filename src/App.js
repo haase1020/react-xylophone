@@ -10,6 +10,7 @@ const NoteButton = (props) =>{
   return(
     <button 
     className="note-button"
+    style={{height:(200-(15*props.index)) +'px' }}
     onClick={()=> {
       // props.playedNotes.push(props.note);
       console.log("props.playedNotes",props.playedNotes);
@@ -30,8 +31,9 @@ function App() {
       < div className="xylophone">
         {JSON.stringify(playedNotes)}
         {/* I am placeholder buttons, please create me using a map, and with your own component */}
-       {notes.map(noteOb => (
+       {notes.map((noteOb, index) => (
        <NoteButton 
+       index={index}
        playedNotes={playedNotes}
        setPlayedNotes = {setPlayedNotes}
        key={noteOb.name} 
