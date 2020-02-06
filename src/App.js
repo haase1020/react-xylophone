@@ -18,7 +18,7 @@ function App() {
       <h1>Create your react xylophone</h1>
       < div className="xylophone">
         {/* I am placeholder buttons, please create me using a map, and with your own component */}
-       {notes.map(note => <NoteButton note={note} />)}
+       {notes.map(noteOb => <NoteButton key={noteOb.name} note={noteOb} />)}
         
       </div>
       {/* <button>Replay</button> */}
