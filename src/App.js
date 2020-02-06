@@ -17,7 +17,9 @@ const NoteButton = (props) =>{
       props.setPlayedNotes([...props.playedNotes,props.note]);
       new Audio(props.note.file).play();
     }}>
+      <div className= "circle"/>
       {props.note.name}
+      <div className= "circle"/>
     </button>
   )
 };
