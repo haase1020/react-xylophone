@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import notes from './assets/notes.js';
 import './App.scss';
+import { jsxExpressionContainer } from '@babel/types';
 
 
 const NoteButton = (props) =>{
-  console.log("PROPS1", props)
+  // console.log("PROPS1", props)
  
 
   return(
@@ -14,7 +15,8 @@ const NoteButton = (props) =>{
     onClick={()=> {
       // props.playedNotes.push(props.note);
       console.log("props.playedNotes",props.playedNotes);
-      props.setPlayedNotes([...props.playedNotes,props.note]);
+      // props.setPlayedNotes([...props.playedNotes,props.note]);
+      props.addPlayedNote(props.note);
       new Audio(props.note.file).play();
     }}>
       <div className= "circle"/>
@@ -27,6 +29,20 @@ const NoteButton = (props) =>{
 function App() {
   const [playedNotes, setPlayedNotes] = useState([]);
 
+  const replayNotes = () =>{
+    playedNotes.map((note, index)=>{
+      window.setTimeout(() => new Audio(note.file).play(), 500 * index);
+    });
+  };
+
+  const resetNotes = () =>{
+    setPlayedNotes([]);
+  };
+
+  const addPlayedNote =(note) =>{
+    setPlayedNotes([...playedNotes, note])
+  }
+
   return (
     <div className="page">
       <h1>Create your react xylophone</h1>
@@ -36,8 +52,7 @@ function App() {
        {notes.map((noteOb, index) => (
        <NoteButton 
        index={index}
-       playedNotes={playedNotes}
-       setPlayedNotes = {setPlayedNotes}
+       addPlayedNote = {addPlayedNote}
        key={noteOb.name} 
        note={noteOb} 
        />
@@ -45,6 +60,9 @@ function App() {
 
         
       </div>
+      {JSON.stringify(playedNotes)}
+      <button onClick={() => replayNotes()}>Replay</button>
+      <button onClick={() => resetNotes()}>Clear</button>
       {/* <button>Replay</button> */}
       {/* <button>Clear</button> */}
     </div>
